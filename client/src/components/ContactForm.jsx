@@ -2,7 +2,7 @@ import contact from "../../assets/contact us.jpg";
 
 const ContactForm = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
+    <div className="min-h-screen bg-[#F3F4F6] flex flex-col justify-center items-center">
       <h1 className="text-3xl font-bold text-gray-800 mb-8 animate-fade-in-up my-3">
         Get In Touch
       </h1>

@@ -17,7 +17,7 @@ function LogInPage() {
 	if(redirect){
 		navigate("/");
 	}
-
+	
 	return (
 		<div className="h-[700px] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 			<motion.div

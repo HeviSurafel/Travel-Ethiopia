@@ -1,7 +1,7 @@
 import { MdOutlineEmojiNature } from "react-icons/md";
 function AboutUs() {
   return (
-    <section className="py-16 px-4 bg-gray-100">
+    <section className="py-16 px-4 bg-[#F3F4F6]">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold">Our Mission</h2>
         <p className="mt-4 text-gray-600">

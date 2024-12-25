@@ -4,6 +4,7 @@ import Hero from "../components/Hero";
 const destinations = [
   {
     name: "Paris, France",
+    category: "City",
     image: "../../assets/pexels-karolina-grabowska-5632381.jpg",
     description: "The city of lights and romance, featuring the Eiffel Tower.",
     adminPhoto: "../../assets/admin1.jpg",
@@ -12,6 +13,7 @@ const destinations = [
   },
   {
     name: "Tokyo, Japan",
+    category: "City",
     image: "../../assets/Ethiopia-12.jpg",
     description: "A bustling city blending tradition and modernity.",
     adminPhoto: "../../assets/admin2.jpg",
@@ -20,6 +22,7 @@ const destinations = [
   },
   {
     name: "Bali, Indonesia",
+    category: "Beach",
     image: "../../assets/Ethiopia-27.jpg",
     description: "A tropical paradise with stunning beaches and temples.",
     adminPhoto: "../../assets/admin3.jpg",
@@ -28,6 +31,7 @@ const destinations = [
   },
   {
     name: "New York, USA",
+    category: "City",
     image: "../../assets/Arba-Minch-edited.jpg",
     description: "The city that never sleeps, home to iconic landmarks.",
     adminPhoto: "../../assets/admin4.jpg",
@@ -36,6 +40,7 @@ const destinations = [
   },
   {
     name: "Cape Town, South Africa",
+    category: "Adventure",
     image: "../../assets/pexels-andrew-3178786.jpg",
     description: "A vibrant city with breathtaking landscapes.",
     adminPhoto: "../../assets/admin5.jpg",
@@ -44,8 +49,29 @@ const destinations = [
   },
 ];
 
+const categories = ["All", "City", "Beach", "Adventure"];
+
+const articles = [
+  {
+    title: "Top 10 Beaches to Visit in 2024",
+    snippet: "Explore the most breathtaking beaches around the globe.",
+    date: "December 1, 2024",
+  },
+  {
+    title: "City Escapes: A Guide to Urban Adventures",
+    snippet: "Discover the hidden gems in the world's busiest cities.",
+    date: "November 25, 2024",
+  },
+  {
+    title: "Adventurous Destinations for Thrill Seekers",
+    snippet: "Push your limits with these adrenaline-pumping locations.",
+    date: "November 20, 2024",
+  },
+];
+
 function DestinationPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [engagement, setEngagement] = useState(
     destinations.map(() => ({
       likes: 0,
@@ -66,29 +92,50 @@ function DestinationPage() {
     setEngagement(updatedEngagement);
   };
 
-  const filteredDestinations = destinations.filter((destination) =>
-    destination.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredDestinations = destinations.filter((destination) => {
+    const matchesCategory =
+      selectedCategory === "All" || destination.category === selectedCategory;
+    const matchesQuery = destination.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesQuery;
+  });
 
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Hero Section */}
       <Hero title="Discover Your Next Adventure" />
 
-      {/* Search Bar */}
-      <div className="flex justify-center mt-6">
-        <input
-          type="text"
-          placeholder="Search for destinations..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+      {/* Search and Category Filters */}
+      <div className="container mx-auto mt-6 px-6">
+        <div className="text-center mb-4">
+          <h2 className="text-lg font-semibold text-gray-700">Search what you want</h2>
+        </div>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+          <input
+            type="text"
+            placeholder="Search for destinations..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {/* Destination Grid */}
-      <div className="container mx-auto py-10 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="container mx-auto py-10 px-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Destination Grid */}
+        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredDestinations.map((destination, index) => (
             <div
               key={index}
@@ -161,6 +208,22 @@ function DestinationPage() {
               No destinations found. Try another search.
             </div>
           )}
+        </div>
+
+        {/* Popular Articles Section */}
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <h3 className="text-xl font-semibold mb-4">Popular Articles</h3>
+          <ul className="space-y-4">
+            {articles.map((article, index) => (
+              <li key={index}>
+                <h4 className="text-lg font-medium text-blue-500 hover:underline cursor-pointer">
+                  {article.title}
+                </h4>
+                <p className="text-sm text-gray-600">{article.snippet}</p>
+                <p className="text-xs text-gray-400">{article.date}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

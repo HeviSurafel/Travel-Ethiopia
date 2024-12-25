@@ -2,7 +2,7 @@ import Hero from "../components/Hero"
 import image from "../../assets/faded_gallery-OfdOEdGYiuk-unsplash.jpg";
 function Service() {
   return (
-    <div className="relative top-0 left-0 w-full">
+    <div className="relative top-0 left-0 w-full bg-[#F3F4F6]">
        <Hero image={image} heading={"Service Page"} />
       <div className="max-w-[600px] mx-auto py-5 ">
         <h5 className="text-red-500 text-[25px] text-center">Our service</h5>
